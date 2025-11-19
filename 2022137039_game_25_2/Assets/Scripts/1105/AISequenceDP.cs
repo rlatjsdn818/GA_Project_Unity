@@ -97,7 +97,7 @@ public class AISequenceDP : MonoBehaviour
         // 3. 결과 찾기 (dp 배열 전체를 순회하여 최대값과 그 Cost를 찾음)
         int finalMaxDamage = 0;
         int finalCost = 0;
-        //string finalCombo = "";
+        string finalCombo = "";
 
         for (int i = 0; i <= maxCost; i++)
         {
