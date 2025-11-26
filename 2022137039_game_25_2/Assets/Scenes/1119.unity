@@ -332,109 +332,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1659057994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1659057996}
-  - component: {fileID: 1659057995}
-  - component: {fileID: 1659057997}
-  - component: {fileID: 1659057998}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1659057995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659057994}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77b0ce9467d62e749b312884ac11de4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {x: 1, y: 1}
-  goal: {x: 5, y: 5}
-  dirs:
-  - {x: 1, y: 0}
-  - {x: -1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 0, y: -1}
---- !u!4 &1659057996
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659057994}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2348175, y: -6.108816, z: 9.6871605}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1659057997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659057994}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c74e4ce6022029749be76c7cfb278255, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 1727808208521596126, guid: 2f720531a7fca634abbaabdf04322ac3,
-    type: 3}
-  floorPrefab: {fileID: 7181635612258164961, guid: adf368e59ff1cee4e8f99b8b0c5c27db,
-    type: 3}
-  mazeContainer: {fileID: 1971956282}
-  width: 0
-  height: 0
-  dirs:
-  - {x: 0, y: 2}
-  - {x: 0, y: -2}
-  - {x: 2, y: 0}
-  - {x: -2, y: 0}
---- !u!114 &1659057998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659057994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decc52d45cd80a34cbe17c708e711496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 329806888717345131, guid: b452f1a06c9c65e43a36a1a5365b8530, type: 3}
-  wallPrefab: {fileID: 1727808208521596126, guid: 2f720531a7fca634abbaabdf04322ac3,
-    type: 3}
-  floorPrefab: {fileID: 7181635612258164961, guid: adf368e59ff1cee4e8f99b8b0c5c27db,
-    type: 3}
-  width: 21
-  height: 21
-  start: {x: 1, y: 1}
-  goal: {x: 5, y: 5}
-  dirs:
-  - {x: 1, y: 0}
-  - {x: -1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 0, y: -1}
 --- !u!1 &1971956281
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1971956282}
+  - component: {fileID: 1971956283}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -466,11 +364,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971956283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971956281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bbb628d0d6a5c479191685cd0b1210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 21
+  height: 21
+  wallProbability: 1
+  wallPrefab: {fileID: 1650432846100935616, guid: 52a7040807f185b47aa9dd132961fd22,
+    type: 3}
+  floorPrefab: {fileID: 1849240100215894867, guid: a01eedbb2bb738a4294333e608b0ec37,
+    type: 3}
+  pathPrefab: {fileID: 1372817218066875779, guid: 5b0a4143665af1d4b91c7620a5e0cccf,
+    type: 3}
+  playerPrefab: {fileID: 5256315044007045989, guid: 96dacb649cdfa7e4092457f892652ece,
+    type: 3}
+  farthestPrefab: {fileID: 6000179902352733733, guid: c8babfdf4e58795449c317626c4d779f,
+    type: 3}
+  moveSpeed: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1596968606}
   - {fileID: 921721106}
-  - {fileID: 1659057996}
   - {fileID: 1971956282}
