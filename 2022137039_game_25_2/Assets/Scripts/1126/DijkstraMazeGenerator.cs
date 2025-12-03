@@ -134,7 +134,9 @@ public class DijkstraMazeGenerator : MonoBehaviour
     void DrawMap()
     {
         foreach (Transform child in transform)
-            //Destroy(child.gameObject);
+        {
+            Destroy(child.gameObject);
+        }
 
         for (int x = 0; x < width; x++)
         {
@@ -154,10 +156,14 @@ public class DijkstraMazeGenerator : MonoBehaviour
         }
     }
 
-    void SpawnPlayer()
+    private void SpawnPlayer()
     {
+        if (playerInstance != null) Destroy(playerInstance);
+
         playerInstance = Instantiate(playerPrefab, new Vector3(startPos.x, 1.2f, startPos.y), Quaternion.identity);
         playerMove = playerInstance.GetComponent<PlayerMove>();
+
+        Debug.Log("Player instance 생성 완료, PlayerMove 참조 연결됨: " + playerMove);
     }
 
     void ShowPath()

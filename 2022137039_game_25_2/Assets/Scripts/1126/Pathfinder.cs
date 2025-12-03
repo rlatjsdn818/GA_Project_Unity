@@ -1,86 +1,103 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Pathfinder : MonoBehaviour
 {
+    private Vector2Int[] dirs =
+    {
+        new Vector2Int(1,0), new Vector2Int(-1,0),
+        new Vector2Int(0,1), new Vector2Int(0,-1)
+    };
+
+    public class Node
+    {
+        public Vector2Int pos;
+        public float cost;
+        public Node(Vector2Int pos, float cost)
+        {
+            this.pos = pos;
+            this.cost = cost;
+        }
+    }
+
     public List<Vector2Int> FindPathDijkstra(int[,] map, Vector2Int start, Vector2Int goal)
     {
         int width = map.GetLength(0);
         int height = map.GetLength(1);
 
-        int[,] dist = new int[width, height];
-        Vector2Int[,] parent = new Vector2Int[width, height];
-
-        var pq = new SimplePriorityQueue<Vector2Int>();
+        float[,] dist = new float[width, height];
+        Vector2Int[,] prev = new Vector2Int[width, height];
+        bool[,] visited = new bool[width, height];
 
         for (int x = 0; x < width; x++)
-            for (int y = 0; y < height; y++)
-                dist[x, y] = int.MaxValue;
-
-        dist[start.x, start.y] = 0;
-        pq.Enqueue(start, 0);
-
-        Vector2Int[] dirs =
         {
-            new Vector2Int(1,0), new Vector2Int(-1,0),
-            new Vector2Int(0,1), new Vector2Int(0,-1),
-        };
+            for (int y = 0; y < height; y++)
+            {
+                dist[x, y] = Mathf.Infinity;
+            }
+        }
+
+        dist[start.x, start.y] = 0f;
+
+        SimplePriorityQueue<Node> pq = new SimplePriorityQueue<Node>();
+        pq.Enqueue(new Node(start, 0f), 0f);
 
         while (pq.Count > 0)
         {
-            var cur = pq.Dequeue();
+            Node curNode = pq.Dequeue();
+            Vector2Int pos = curNode.pos;
 
-            if (cur == goal)
-                return BuildPath(parent, start, goal);
+            if (visited[pos.x, pos.y]) continue;
+            visited[pos.x, pos.y] = true;
+
+            if (pos == goal) break;
 
             foreach (var d in dirs)
             {
-                int nx = cur.x + d.x;
-                int ny = cur.y + d.y;
+                int nx = pos.x + d.x;
+                int ny = pos.y + d.y;
 
                 if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
-                if (map[nx, ny] == 0) continue;
+                if (map[nx, ny] == 0) continue; // 벽
 
-                int cost = TerrainCost(map[nx, ny]);
-                int nd = dist[cur.x, cur.y] + cost;
+                float tileCost = GetCostFromTileType(map[nx, ny]);
+                float newDist = dist[pos.x, pos.y] + tileCost;
 
-                if (nd < dist[nx, ny])
+                if (newDist < dist[nx, ny])
                 {
-                    dist[nx, ny] = nd;
-                    parent[nx, ny] = cur;
-                    pq.Enqueue(new Vector2Int(nx, ny), nd);
+                    dist[nx, ny] = newDist;
+                    prev[nx, ny] = pos;
+                    pq.Enqueue(new Node(new Vector2Int(nx, ny), newDist), newDist);
                 }
             }
         }
 
-        return null;
-    }
+        if (dist[goal.x, goal.y] == Mathf.Infinity)
+            return null;
 
-    int TerrainCost(int tile)
-    {
-        switch (tile)
-        {
-            case 1: return 1;
-            case 2: return 3;
-            case 3: return 6;
-        }
-        return 999;
-    }
-
-    List<Vector2Int> BuildPath(Vector2Int[,] parent, Vector2Int start, Vector2Int goal)
-    {
         List<Vector2Int> path = new List<Vector2Int>();
-        var cur = goal;
-
-        while (cur != start)
+        Vector2Int curPos = goal;
+        while (curPos != start)
         {
-            path.Add(cur);
-            cur = parent[cur.x, cur.y];
+            path.Add(curPos);
+            curPos = prev[curPos.x, curPos.y];
         }
-
         path.Add(start);
         path.Reverse();
+
         return path;
+    }
+
+    float GetCostFromTileType(int tileType)
+    {
+        switch (tileType)
+        {
+            case 1: return 1f; // 땅
+            case 2: return 3f; // 숲
+            case 3: return 5f; // 진흙
+            default: return Mathf.Infinity;
+        }
     }
 }
